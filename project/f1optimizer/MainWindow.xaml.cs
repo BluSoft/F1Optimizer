@@ -20,16 +20,20 @@ namespace f1optimizer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Bolid m_bolid;
+        Driver m_driver;
         private LapDataProcessor m_lapDataProcessor;
 
         public MainWindow()
         {
             InitializeComponent();
-            m_bolid = new Bolid(100);
-            m_lapDataProcessor = new LapDataProcessor(m_bolid);
+            DecisionSequenceGenerator dsg = new DecisionSequenceGenerator(20);
+            m_driver = new Driver("Robert Kubica", "BMW", 0.9, 0.4);
+            m_lapDataProcessor = new LapDataProcessor(m_driver);
             this.laps.ItemsSource = m_lapDataProcessor.laps;
             this.wholeLapTime.Text = m_lapDataProcessor.GenerateLapTimeSum().ToString();
+
+            StrategyOptimizer so = new StrategyOptimizer(m_lapDataProcessor, dsg);
+            List<bool> best = so.GetBestStrategy();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

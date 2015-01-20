@@ -11,22 +11,15 @@ namespace f1optimizer
         #region Fields
 
         public List<LapData> laps;
-        public Bolid drivingBolid;
+        public Driver driver;
 
         #endregion Fields
 
-        #region Constants
-
-        private const double TIME_MULTIPLIER = 3;
-        private const double TYRE_WEAR_MULTIPLIER = 0.1;
-
-        #endregion Constants
-
         #region Constructor
 
-        public LapDataProcessor(Bolid bolid)
+        public LapDataProcessor(Driver driver)
         {
-            this.drivingBolid = bolid;
+            this.driver = driver;
             laps = new List<LapData>();
             laps.Add(new LapData(100, 0, false, 0));
         }
@@ -37,7 +30,7 @@ namespace f1optimizer
 
         public void SimulateLap(bool decision)
         {
-            laps.Add(this.DriveLap(laps.Last().TyreWear, this.drivingBolid.NormalLapTime, decision, laps.Count));        
+            laps.Add(this.DriveLap(laps.Last().TyreWear, this.driver.NormalLapTime, decision, laps.Count));        
         }
 
         public double GenerateLapTimeSum()
@@ -77,12 +70,12 @@ namespace f1optimizer
 
         private double GenerateTyreWearOnLap(double currentTyreWear)
         {
-            return TYRE_WEAR_MULTIPLIER * (100 - currentTyreWear) + 1;
+            return driver.TyreWearCoefficient * (100 - currentTyreWear) + 1;
         }
 
         private double GenerateTimeChange(double currentTyreWear)
         {
-            return TIME_MULTIPLIER * (100 - currentTyreWear) + 0.2;
+            return driver.timeMultiplier * (100 - currentTyreWear) + 0.2;
         }
 
         #endregion Private Methods

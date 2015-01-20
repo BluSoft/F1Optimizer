@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="StrategyOptimizer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -61,7 +62,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Bolid.cs" />
+    <Compile Include="DecisionSequenceGenerator.cs" />
+    <Compile Include="Driver.cs" />
     <Compile Include="LapData.cs" />
     <Compile Include="LapDataProcessor.cs" />
     <Compile Include="MainWindow.xaml.cs">
