@@ -22,17 +22,23 @@ namespace f1optimizer
     {
         Driver m_driver;
         private LapDataProcessor m_lapDataProcessor;
+        private ProcessController m_processController;
 
         public MainWindow()
         {
             InitializeComponent();
+            m_processController = new ProcessController();
+
+
+
+
             DecisionSequenceGenerator dsg = new DecisionSequenceGenerator(20);
             m_driver = new Driver("Robert Kubica", "BMW", 0.9, 0.4);
             m_lapDataProcessor = new LapDataProcessor(m_driver);
             this.laps.ItemsSource = m_lapDataProcessor.laps;
             this.wholeLapTime.Text = m_lapDataProcessor.GenerateLapTimeSum().ToString();
 
-            StrategyOptimizer so = new StrategyOptimizer(m_lapDataProcessor, dsg);
+            CompleteOverviewOptimizer so = new CompleteOverviewOptimizer(m_lapDataProcessor, dsg);
             List<bool> best = so.GetBestStrategy();
         }
 

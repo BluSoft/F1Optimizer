@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace f1optimizer
 {
-    class StrategyOptimizer
+    class CompleteOverviewOptimizer
     {
         #region Fields
 
@@ -18,7 +18,7 @@ namespace f1optimizer
 
         #region Constructors
 
-        public StrategyOptimizer(LapDataProcessor ldp, DecisionSequenceGenerator dsg)
+        public CompleteOverviewOptimizer(LapDataProcessor ldp, DecisionSequenceGenerator dsg)
         {
             m_decisionGenerator = dsg;
             m_lapDataProcessor = ldp;
