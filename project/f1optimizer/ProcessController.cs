@@ -16,6 +16,7 @@ namespace f1optimizer
         private Dictionary<string, string> m_configParams;
         private ConfigReader m_configReader;
         private CompleteOverviewOptimizer m_optimizer;
+        private List<string> m_strategiesStrings;
 
         #endregion Fields
 
@@ -26,11 +27,25 @@ namespace f1optimizer
             m_configReader = new ConfigReader("f1");
             m_configParams = m_configReader.GetGlobalConfig();
             drivers = m_configReader.GetDrivers();
-            List<string> strs = m_configReader.GetStrategies();
+            m_strategiesStrings = m_configReader.GetStrategies();
+            GenerateLapProcessorsUsingDrivers();
+
         }
 
         #endregion
 
+        #region Private Methods
 
+        private void GenerateLapProcessorsUsingDrivers()
+        {
+            List<LapDataProcessor> lapProcessors = new List<LapDataProcessor>();
+
+            foreach (Driver driver in drivers)
+            {
+                lapProcessors.Add(new LapDataProcessor(driver));
+            }
+        }
+
+        #endregion
     }
 }
