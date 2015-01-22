@@ -13,6 +13,11 @@ namespace f1optimizer
         public List<LapData> laps;
         public Driver driver;
 
+        private double m_timeMultipier = 3.0;
+        private int m_randomFrom = 0;
+        private int m_randomTo = 0;
+        private bool m_useRandom = false;
+
         #endregion Fields
 
         #region Constructor
@@ -27,6 +32,32 @@ namespace f1optimizer
         #endregion Constructor
 
         #region Public Methods
+
+        public void SetTimeMultiplier(double t)
+        {
+            m_timeMultipier = t;
+        }
+
+        public void SetRandomTo(int t)
+        {
+            m_randomTo = t;
+        }
+
+        public void SetRandomFrom(int t)
+        {
+            m_randomFrom = t;
+        }
+
+        public void SetUseRandom(bool t)
+        {
+            m_useRandom = t;
+        }
+
+        public void Clear()
+        {
+            laps.Clear();
+            laps.Add(new LapData(100, 0, false, 0));
+        }
 
         public void SimulateLap(bool decision)
         {
@@ -75,7 +106,7 @@ namespace f1optimizer
 
         private double GenerateTimeChange(double currentTyreWear)
         {
-            return driver.timeMultiplier * (100 - currentTyreWear) + 0.2;
+            return m_timeMultipier * (100 - currentTyreWear) + 0.2;
         }
 
         #endregion Private Methods

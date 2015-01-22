@@ -38,7 +38,7 @@ namespace f1optimizer
             this.laps.ItemsSource = m_lapDataProcessor.laps;
             this.wholeLapTime.Text = m_lapDataProcessor.GenerateLapTimeSum().ToString();
 
-            CompleteOverviewOptimizer so = new CompleteOverviewOptimizer(m_lapDataProcessor, dsg);
+            CompleteOverviewOptimizer so = new CompleteOverviewOptimizer(20);
             List<bool> best = so.GetBestStrategy();
         }
 

@@ -18,16 +18,20 @@ namespace f1optimizer
 
         #region Constructors
 
-        public CompleteOverviewOptimizer(LapDataProcessor ldp, DecisionSequenceGenerator dsg)
+        public CompleteOverviewOptimizer(int lapNumber)
         {
-            m_decisionGenerator = dsg;
-            m_lapDataProcessor = ldp;
+            m_decisionGenerator = new DecisionSequenceGenerator(lapNumber);
             m_timeList = new List<double>();
         }
 
         #endregion
 
         #region Public Methods
+
+        public void SetLapDataProcessor(LapDataProcessor ldp)
+        {
+            m_lapDataProcessor = ldp;
+        }
 
         public List<bool> GetBestStrategy()
         {
@@ -56,6 +60,11 @@ namespace f1optimizer
             }
 
             return bestResult;
+        }
+
+        public void PerformCompleteOverviewOptimization()
+        {
+ 
         }
 
         #endregion

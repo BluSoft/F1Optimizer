@@ -15,22 +15,20 @@ namespace f1optimizer
         public String Team { get; set; }
 
         public double NormalLapTime { get {
-            return LAPTIME_BASE * (2.0 - SkillCoefficient);
+            return m_laptimeBase * (2.0 - SkillCoefficient);
         } }
 
         public double TyreWearCoefficient { get {
-            return TYREWEAR_BASE * AggressionCoefficient;
+            return m_tyreWearBase * AggressionCoefficient;
         } }
 
         public double SkillCoefficient { get; set; }
 
         public double AggressionCoefficient { get; set; }
 
-        private const double LAPTIME_BASE = 110.0;
+        private double m_laptimeBase = 110.0;
 
-        private const double TYREWEAR_BASE = 0.5;
-
-        public double timeMultiplier = 3;
+        private double m_tyreWearBase = 0.5;
 
         #endregion Fields
 
@@ -42,6 +40,20 @@ namespace f1optimizer
             Team = team;
             SkillCoefficient = skillCoefficient;
             AggressionCoefficient = aggressionCoefficient;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void SetTyreWearBase(double t)
+        {
+            m_tyreWearBase = t;
+        }
+
+        public void SetLapTimeBase(double t)
+        {
+            m_laptimeBase = t;
         }
 
         #endregion

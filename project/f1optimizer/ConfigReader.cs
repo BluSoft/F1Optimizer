@@ -19,6 +19,7 @@ namespace f1optimizer
         private MongoClient m_client;
         private MongoServer m_server;
         private MongoDatabase m_database;
+        private Dictionary<string, string> m_configParams;
 
         #endregion Fields
 
@@ -29,26 +30,34 @@ namespace f1optimizer
             m_client = new MongoClient();
             m_server = m_client.GetServer();
             m_database = m_server.GetDatabase(databaseName);
+            GetGlobalConfig();
         }
 
         #endregion
 
         #region Public Methods
 
-        public Dictionary<string, string> GetGlobalConfig()
+        public int GetInt(string key)
         {
-            Dictionary<string, string> result = new Dictionary<string, string>();
+            return Convert.ToInt32(m_configParams[key], 10);
+        }
 
-            var configs = m_database.GetCollection("config");
+        public string GetString(string key)
+        {
+            return m_configParams[key];
+        }
 
-            var query = from c in configs.AsQueryable<BsonDocument>() select c;
+        public double GetDouble(string key)
+        {
+            NumberFormatInfo provider = new NumberFormatInfo();
+            provider.NumberDecimalSeparator = ".";
 
-            foreach (var record in query)
-            {
-                result.Add(record["key"].AsString, record["value"].AsString);
-            }
+            return Convert.ToDouble(m_configParams[key], provider);
+        }
 
-            return result;
+        public bool GetBool(string key)
+        {
+            return m_configParams[key] == "true";
         }
 
         public List<Driver> GetDrivers()
@@ -85,6 +94,26 @@ namespace f1optimizer
 
             return result;
         }
+
+        #endregion
+
+        #region Private Methods
+
+        public void GetGlobalConfig()
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+
+            var configs = m_database.GetCollection("config");
+
+            var query = from c in configs.AsQueryable<BsonDocument>() select c;
+
+            foreach (var record in query)
+            {
+                result.Add(record["key"].AsString, record["value"].AsString);
+            }
+            m_configParams = result;
+        }
+
 
         #endregion
     }
