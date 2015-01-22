@@ -16,7 +16,9 @@
 language.settings.xml
 .settings
 *.cs.orig
-
+*.exe
+*.pdb
+*.manifest
 *.Cache
 *.suo
 *.user
