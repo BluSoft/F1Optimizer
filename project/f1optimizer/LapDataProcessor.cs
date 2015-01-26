@@ -13,6 +13,7 @@ namespace f1optimizer
         public List<LapData> laps;
         public Driver driver;
 
+        private Random m_random;
         private double m_timeMultipier = 3.0;
         private int m_randomFrom = 0;
         private int m_randomTo = 0;
@@ -22,11 +23,12 @@ namespace f1optimizer
 
         #region Constructor
 
-        public LapDataProcessor(Driver driver)
+        public LapDataProcessor(Driver driver, Random random)
         {
             this.driver = driver;
             laps = new List<LapData>();
             laps.Add(new LapData(100, 0, false, 0));
+            this.m_random = random;
         }
 
         #endregion Constructor
@@ -84,6 +86,12 @@ namespace f1optimizer
             double newTyreWear = 0;
             double lapTime = 0;
             double lapTimeChange = GenerateTimeChange(currentTyreWear);
+
+            if (this.m_useRandom)
+            {
+                lapTimeChange += m_random.Next(this.m_randomFrom, this.m_randomTo);
+            }
+
             if (decision)
             {
                 newTyreWear = 100;

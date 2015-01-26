@@ -20,21 +20,17 @@ namespace f1optimizer
     /// </summary>
     public partial class MainWindow : Window
     {
-        Driver m_driver;
-        private LapDataProcessor m_lapDataProcessor;
         private ProcessController m_processController;
+        private MainModel m_model;
 
         public MainWindow()
         {
             InitializeComponent();
             m_processController = new ProcessController();
+            m_model = m_processController.GetModel();
 
 
 
-
-            DecisionSequenceGenerator dsg = new DecisionSequenceGenerator(20);
-            m_driver = new Driver("Robert Kubica", "BMW", 0.9, 0.4);
-            m_lapDataProcessor = new LapDataProcessor(m_driver);
             this.laps.ItemsSource = m_lapDataProcessor.laps;
             this.wholeLapTime.Text = m_lapDataProcessor.GenerateLapTimeSum().ToString();
 

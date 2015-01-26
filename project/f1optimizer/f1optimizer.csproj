@@ -61,6 +61,7 @@
     </ApplicationDefinition>
     <Compile Include="ConfigReader.cs" />
     <Compile Include="DriverDB.cs" />
+    <Compile Include="MainModel.cs" />
     <Compile Include="ProcessController.cs" />
     <Compile Include="CompleteOverviewOptimizer.cs" />
     <Page Include="MainWindow.xaml">

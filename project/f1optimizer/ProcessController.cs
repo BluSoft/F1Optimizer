@@ -17,6 +17,7 @@ namespace f1optimizer
         private CompleteOverviewOptimizer m_optimizer;
         private List<string> m_strategiesStrings;
         private Random m_random;
+        private MainModel m_model;
 
         #endregion Fields
 
@@ -34,11 +35,18 @@ namespace f1optimizer
             m_optimizer = new CompleteOverviewOptimizer(m_configReader.GetInt("lap_number"));
             GenerateLapProcessorsUsingDrivers();
 
+            m_model = new MainModel(lapProcessors, drivers, m_strategiesStrings);
+
         }
 
         #endregion
 
         #region Public Methods
+
+        public MainModel GetModel()
+        {
+            return this.m_model;
+        }
 
         public LapDataProcessor ApplyStrategy(string strategy, LapDataProcessor driverProcessor)
         {
@@ -66,7 +74,7 @@ namespace f1optimizer
 
             foreach (Driver driver in drivers)
             {
-                LapDataProcessor ldp = new LapDataProcessor(driver)
+                LapDataProcessor ldp = new LapDataProcessor(driver, this.m_random);
                 ldp.SetTimeMultiplier(m_configReader.GetDouble("time_multiplier");
                 ldp.SetUseRandom(m_configReader.GetBool("random"));
                 ldp.SetRandomTo(m_configReader.GetInt("randomTo"));

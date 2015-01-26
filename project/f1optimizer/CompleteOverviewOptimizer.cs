@@ -64,7 +64,12 @@ namespace f1optimizer
 
         public void PerformCompleteOverviewOptimization()
         {
- 
+            List<bool> bestStrategy = GetBestStrategy();
+            m_lapDataProcessor.Clear();
+            foreach (bool decision in bestStrategy)
+            {
+                m_lapDataProcessor.SimulateLap(decision);
+            }
         }
 
         #endregion
