@@ -31,32 +31,10 @@ namespace f1optimizer
 
 
 
-            this.laps.ItemsSource = m_lapDataProcessor.laps;
-            this.wholeLapTime.Text = m_lapDataProcessor.GenerateLapTimeSum().ToString();
-
             CompleteOverviewOptimizer so = new CompleteOverviewOptimizer(20);
             List<bool> best = so.GetBestStrategy();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            bool decision = false;
-            if (this.chkDecision.IsChecked != null) ;
-            {
-                decision = (bool)this.chkDecision.IsChecked;
-            }
-            m_lapDataProcessor.SimulateLap(decision);
-            this.laps.Items.Refresh();
-            this.wholeLapTime.Text = m_lapDataProcessor.GenerateLapTimeSum().ToString();
-        }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            m_lapDataProcessor.laps.Clear();
-            m_lapDataProcessor.laps.Add(new LapData(100, 0, false, 0));
-            this.laps.Items.Refresh();
-            this.wholeLapTime.Text = m_lapDataProcessor.GenerateLapTimeSum().ToString();
-
-        }
     }
 }

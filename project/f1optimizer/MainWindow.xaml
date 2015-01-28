@@ -3,12 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="808.85" Width="556">
     <Grid>
-        <Button Content="Jedź okrążenie" Margin="23,24,388,722" Click="Button_Click_1"></Button>
         <Label x:Name="decision" Content="Pit stop:" Margin="435,24,-435,-24"></Label>
         <CheckBox x:Name="chkDecision" Margin="504,29,-504,-29"></CheckBox>
         <DataGrid x:Name="laps" Margin="10,79,20,80"></DataGrid>
         <TextBox x:Name="wholeLapTime"  Margin="368,715,20,41" IsEnabled="False" Text="0"></TextBox>
         <Label Content="Całkowity czas przejazdu:" Margin="215,713,-215,-726"></Label>
-        <Button Content="Reset" Margin="13,713,388,41" Click="Button_Click_2"></Button>
     </Grid>
 </Window>

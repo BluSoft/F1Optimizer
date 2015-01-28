@@ -75,7 +75,7 @@ namespace f1optimizer
             foreach (Driver driver in drivers)
             {
                 LapDataProcessor ldp = new LapDataProcessor(driver, this.m_random);
-                ldp.SetTimeMultiplier(m_configReader.GetDouble("time_multiplier");
+                ldp.SetTimeMultiplier(m_configReader.GetDouble("time_multiplier"));
                 ldp.SetUseRandom(m_configReader.GetBool("random"));
                 ldp.SetRandomTo(m_configReader.GetInt("randomTo"));
                 ldp.SetRandomFrom(m_configReader.GetInt("randomFrom"));
