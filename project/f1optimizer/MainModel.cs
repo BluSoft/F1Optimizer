@@ -23,6 +23,13 @@ namespace f1optimizer
 
         private List<LapDataProcessor> m_lapsData;
         private List<Driver> m_drivers;
+
+        public List<Driver> Drivers
+        {
+            get { return m_drivers; }
+            set { m_drivers = value; }
+        }
+
         List<string> m_strategiesStrings;
 
         #endregion Fields

@@ -20,13 +20,15 @@ namespace f1optimizer
     /// </summary>
     public partial class SetupWindow : Window
     {
-        ObservableCollection<String> driverList;
+        private ObservableCollection<Driver> driverList;
+        private MainModel model;
+        private ProcessController processController;
 
         public SetupWindow()
         {
-            driverList = new ObservableCollection<String>(new List<String>(){
-        "Robert Kubica", "Lewis Hamilton"
-        });
+            processController = ProcessControllerFactory.GetProcessController();
+            model = processController.GetModel();
+            driverList = model.Drivers;
             DataContext = driverList;
             InitializeComponent();
         }
