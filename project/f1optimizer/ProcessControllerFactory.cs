@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace f1optimizer
 {
-    public class ProcessControllerFactory
+    class ProcessControllerFactory
     {
         private static ProcessController m_processController;
 

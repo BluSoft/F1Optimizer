@@ -12,6 +12,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="4*" />
             <RowDefinition Height="4*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" 
                    Grid.ColumnSpan="2" 
@@ -29,13 +30,137 @@
                HorizontalAlignment="Center" />
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Vertical">
             <Label Content="Wybierz kierowcę" />
-            <ComboBox Name="Kierowcy1" Margin="5,0" ItemsSource="{Binding}">
+            <ComboBox Name="Kierowcy1" Margin="5,0" ItemsSource="{Binding drivers}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock  Text="{Binding Name}"/>
+                            <TextBlock Text="-"/>
+                            <TextBlock Text="{Binding Team}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox> 
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Nazwa: " />
+                <Label Name="Name1" Content="" FontWeight="Bold"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Zespół: " />
+                <Label Name="Team1"  Content="" FontWeight="Bold"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Współczynnik szybkości: " />
+                <Label Name="Speed1" Content="" FontWeight="Bold"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Współczynnik agresji: " />
+                <Label Name="Aggr1" Content="" FontWeight="Bold"/>
+            </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
             <Label Content="Wybierz kierowcę" />
-            <ComboBox Name="Kierowcy2" Margin="5,0" ItemsSource="{Binding}">
+            <ComboBox Name="Kierowcy2" Margin="5,0" ItemsSource="{Binding drivers}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock  Text="{Binding Name}"/>
+                            <TextBlock Text="-"/>
+                            <TextBlock Text="{Binding Team}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Nazwa: " />
+                <Label Name="Name2" Content="" FontWeight="Bold"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Zespół: " />
+                <Label Name="Team2"  Content="" FontWeight="Bold"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Współczynnik szybkości: " />
+                <Label Name="Speed2" Content="" FontWeight="Bold"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Współczynnik agresji: " />
+                <Label Name="Aggr2" Content="" FontWeight="Bold"/>
+            </StackPanel>
         </StackPanel>
+        <!-- Strategie -->
+        <StackPanel Grid.Row="3"
+                    Grid.Column="0"
+                    Orientation="Vertical">
+            <Label Content="Wybierz strategię" />
+            <ComboBox Name="Strategie1" Margin="5,0" ItemsSource="{Binding strategies}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Strategia "/>
+                            <TextBlock  Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Parametr: " />
+                <Label Name="ParamValue1" Content=" " />
+            </StackPanel>
+            <Slider Name="Parametr1" 
+                    Orientation="Horizontal"
+                    Minimum="1"
+                    Maximum="100"
+                    Value="0"
+                    ValueChanged="Parametr1_ValueChanged_1"
+                    IsSnapToTickEnabled="True"
+                    TickFrequency="1"
+                    />
+            <TextBlock Name="Description1"  
+                           Text=""
+                       Margin="5,10"
+                       TextWrapping="Wrap"
+                       />
+        </StackPanel>
+        <StackPanel Grid.Row="3"
+                    Grid.Column="1"
+                    Orientation="Vertical">
+            <Label Content="Wybierz strategię" />
+            <ComboBox Name="Strategie2" Margin="5,0" ItemsSource="{Binding strategies}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Strategia "/>
+                            <TextBlock  Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Parametr: " />
+                <Label Name="ParamValue2" Content=" " />
+            </StackPanel>
+            
+            <Slider Name="Parametr2" 
+                    Orientation="Horizontal"
+                    Minimum="1"
+                    Maximum="100"
+                    Value="0"
+                    ValueChanged="Parametr2_ValueChanged_1"
+                    IsSnapToTickEnabled="True"
+                    TickFrequency="1"
+                    />
+            <TextBlock Name="Description2"  
+                           Text=""
+                       Margin="5,10"
+                       TextWrapping="Wrap"/>
+        </StackPanel>
+        <DockPanel Grid.Row="4"
+                    Grid.Column="1">
+            <Button Name="startRace" 
+                    Content="Rozpocznij Symulację" 
+                    HorizontalAlignment="Right"
+                    Margin="5"/>
+        </DockPanel>
     </Grid>
 </Window>

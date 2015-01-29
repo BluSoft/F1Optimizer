@@ -10,19 +10,51 @@ namespace f1optimizer
     {
         #region Constructors
 
-        public MainModel(List<LapDataProcessor> list, List<Driver> drivers, List<String> strategies)
+        public MainModel(List<Driver> drivers, List<Strategy> strategies)
         {
-            m_lapsData = list;
             m_drivers = drivers;
-            m_strategiesStrings = strategies;
+            m_strategies = strategies;
+            m_lapsData = new List<LapDataProcessor>();
         }
 
         #endregion
 
         #region Fields
 
+        private bool isRandom;
+
+        public bool IsRandom
+        {
+            get { return isRandom; }
+            set { isRandom = value; }
+        }
+
         private List<LapDataProcessor> m_lapsData;
+
+        public List<LapDataProcessor> LapsData
+        {
+            get { return m_lapsData; }
+            set { m_lapsData = value; }
+        }
         private List<Driver> m_drivers;
+        private List<Strategy> m_strategies;
+
+
+        private List<Driver> selectedDrivers;
+        public List<Driver> SelectedDrivers
+        {
+            get { return selectedDrivers; }
+            set { selectedDrivers = value; }
+        }
+
+
+        private List<Strategy> selectedStrategies;
+
+        public List<Strategy> SelectedStrategies
+        {
+            get { return selectedStrategies; }
+            set { selectedStrategies = value; }
+        }
 
         public List<Driver> Drivers
         {
@@ -30,7 +62,11 @@ namespace f1optimizer
             set { m_drivers = value; }
         }
 
-        List<string> m_strategiesStrings;
+        internal List<Strategy> Strategies
+        {
+            get { return m_strategies; }
+            set { m_strategies = value; }
+        }
 
         #endregion Fields
     }

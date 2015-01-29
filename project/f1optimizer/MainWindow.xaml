@@ -1,12 +1,40 @@
 ﻿<Window x:Class="f1optimizer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="808.85" Width="556">
+        Title="Symulacja wyścigu" Height="700" Width="556">
     <Grid>
-        <Label x:Name="decision" Content="Pit stop:" Margin="435,24,-435,-24"></Label>
-        <CheckBox x:Name="chkDecision" Margin="504,29,-504,-29"></CheckBox>
-        <DataGrid x:Name="laps" Margin="10,79,20,80"></DataGrid>
-        <TextBox x:Name="wholeLapTime"  Margin="368,715,20,41" IsEnabled="False" Text="0"></TextBox>
-        <Label Content="Całkowity czas przejazdu:" Margin="215,713,-215,-726"></Label>
-    </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition 
+                Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="2"
+                  Grid.Column="0"
+                  ItemsSource="{Binding race1}"
+                  AlternatingRowBackground="Azure"
+                  AlternationCount="2"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Numer"
+                                    Binding="{Binding LapNumber}"/>
+                <DataGridTextColumn Header="Czas"
+                                    Binding="{Binding LapTime}"/>
+                <DataGridTextColumn Header="Zużycie opon"
+                                    Binding="{Binding TyreWear}"/>
+                <DataGridCheckBoxColumn Header="PitStop?"
+                                        Binding="{Binding Decision}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        
+        
+    
+        </Grid>
 </Window>

@@ -64,9 +64,11 @@
     <Compile Include="MainModel.cs" />
     <Compile Include="ProcessController.cs" />
     <Compile Include="CompleteOverviewOptimizer.cs" />
+    <Compile Include="ProcessControllerFactory.cs" />
     <Compile Include="SetupWindow.xaml.cs">
       <DependentUpon>SetupWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Strategy.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

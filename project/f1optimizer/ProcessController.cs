@@ -15,7 +15,7 @@ namespace f1optimizer
 
         private ConfigReader m_configReader;
         private CompleteOverviewOptimizer m_optimizer;
-        private List<string> m_strategiesStrings;
+        private List<Strategy> m_strategies;
         private Random m_random;
         private MainModel m_model;
 
@@ -30,12 +30,12 @@ namespace f1optimizer
             m_configReader.GetGlobalConfig();
             drivers = m_configReader.GetDrivers();
 
-            m_strategiesStrings = m_configReader.GetStrategies();
-            m_strategiesStrings.Add("optimal");
+            m_strategies = m_configReader.GetStrategies();
             m_optimizer = new CompleteOverviewOptimizer(m_configReader.GetInt("lap_number"));
             GenerateLapProcessorsUsingDrivers();
 
-            m_model = new MainModel(lapProcessors, drivers, m_strategiesStrings);
+            m_model = new MainModel(drivers, m_strategies);
+            m_model.IsRandom = m_configReader.GetBool("random");
 
         }
 
@@ -48,16 +48,15 @@ namespace f1optimizer
             return this.m_model;
         }
 
-        public LapDataProcessor ApplyStrategy(string strategy, LapDataProcessor driverProcessor)
+        public LapDataProcessor ApplyStrategy(Strategy strategy, LapDataProcessor driverProcessor)
         {
-            switch (strategy.Substring(Math.Min(1, strategy.Length)))
+            switch (strategy.Name)
             {
-                case "o":
+                case "Optymalna":
                     return PerformOptimization(driverProcessor);
-                case "r":
+                case "Losowa":
                     return PerformRandomStrategy(strategy, driverProcessor);
-                case "0":
-                case "1":
+                case "Ustalona":
                     return PerformFixedStrategy(strategy, driverProcessor);
                 default:
                     return PerformOptimization(driverProcessor);
@@ -67,6 +66,25 @@ namespace f1optimizer
         #endregion
 
         #region Private Methods
+
+        public void GenerateSelectedLapData()
+        {
+            var selectedDrivers = this.m_model.SelectedDrivers;
+            var selectedStrategies = this.m_model.SelectedStrategies;
+            var lapData = new List<LapDataProcessor>();
+
+            for (int i = 0; i < selectedDrivers.Count; ++i)
+            {
+                LapDataProcessor ldp = new LapDataProcessor(selectedDrivers[i], this.m_random);
+                ldp.SetTimeMultiplier(m_configReader.GetDouble("time_multiplier"));
+                ldp.SetRandomTo(m_configReader.GetInt("randomTo"));
+                ldp.SetRandomFrom(m_configReader.GetInt("randomFrom"));
+                ldp = ApplyStrategy(selectedStrategies[i], ldp);
+                lapData.Add(ldp);
+            }
+            this.m_model.LapsData = lapData;
+
+        }
 
         private void GenerateLapProcessorsUsingDrivers()
         {
@@ -91,33 +109,24 @@ namespace f1optimizer
             return driverProcessor;
         }
 
-        private LapDataProcessor PerformFixedStrategy(string sequence, LapDataProcessor driverProcessor)
+        private LapDataProcessor PerformFixedStrategy(Strategy strategy, LapDataProcessor driverProcessor)
         {
             driverProcessor.Clear();
-            string resultSequence = "";
             int lapNumber = m_configReader.GetInt("lap_number");            
-            
-            while (resultSequence.Length < lapNumber)
-            {
-                StringBuilder sb = new StringBuilder(resultSequence);
-                sb.Append(sequence);
-                resultSequence = sb.ToString();
-            }
-
-            resultSequence = resultSequence.Substring(0, lapNumber);
 
             for (int i = 0; i < lapNumber; ++i)
             {
-                driverProcessor.SimulateLap(resultSequence.ElementAt(i) == '1');
+                bool test = (((i+1) % strategy.Option) == 0);
+                driverProcessor.SimulateLap(test);
             }
 
             return driverProcessor;
         }
 
-        private LapDataProcessor PerformRandomStrategy(string probability, LapDataProcessor driverProcessor)
+        private LapDataProcessor PerformRandomStrategy(Strategy strategy, LapDataProcessor driverProcessor)
         {
             driverProcessor.Clear();
-            int percentage = Convert.ToInt32(probability.Substring(probability.Length - 2));
+            int percentage = Convert.ToInt32(strategy.Option);
             int lapNumber = m_configReader.GetInt("lap_number");
 
             for (int i = 0; i < lapNumber; ++i)

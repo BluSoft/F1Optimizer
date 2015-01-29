@@ -79,9 +79,9 @@ namespace f1optimizer
             return result;
         }
 
-        public List<string> GetStrategies()
+        public List<Strategy> GetStrategies()
         {
-            List<string> result = new List<string>();
+            List<Strategy> result = new List<Strategy>();
 
             var strategies = m_database.GetCollection("strategies");
 
@@ -89,7 +89,10 @@ namespace f1optimizer
 
             foreach (var str in query)
             {
-                result.Add(str["sequence"].AsString);
+                Strategy strategy = new Strategy();
+                strategy.Name = str["name"].AsString;
+                strategy.Description = str["description"].AsString;
+                result.Add(strategy);
             }
 
             return result;
